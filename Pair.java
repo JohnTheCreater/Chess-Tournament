@@ -43,8 +43,7 @@ public class Pair {
 
 
         }
-        player1.addOpponentId(player2.getId());
-        player2.addOpponentId(player1.getId());
+      
     }
 
     

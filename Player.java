@@ -6,6 +6,9 @@ public class Player {
     private int id;
     private int score;
     private int byePoints;
+    private boolean isByePointReceived;
+   
+
     private int winScore;
    
     private Set<Integer> opponents;
@@ -30,6 +33,19 @@ public class Player {
         return winScore;
     }
 
+    public boolean isByePointReceived() {
+        return isByePointReceived;
+    }
+
+
+    private void setByePointReceived(boolean isByePointReceived) {
+        this.isByePointReceived = isByePointReceived;
+    }
+    public Set<Integer> getOpponents()
+    {
+        return opponents;
+    }
+
 
     public boolean isPreviousOpponent(int opponentId)
     {
@@ -45,6 +61,7 @@ public class Player {
     {
         score+= point;
         byePoints+= point;
+        setByePointReceived(true);
     }
 
     public void addWinScore(int point)

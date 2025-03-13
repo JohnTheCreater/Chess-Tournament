@@ -46,29 +46,48 @@ public class Round {
     private List<Pair> generatePairs(Player[] players) {
 
             List<Pair> pairs = new ArrayList<>();
-            for(int i = 0; i < players.length-1; i+=2)
+
+            Player[] roundPlayers = players.clone();
+
+            int activePlayers = roundPlayers.length; 
+           
+
+            if(roundPlayers.length%2 != 0)
+            {       
+                    int k = activePlayers-1;
+                    while(k>=0 && roundPlayers[k].isByePointReceived())  k--;
+                    if(k >= 0){
+                    activePlayers--;
+                    Player t = roundPlayers[k];
+                    roundPlayers[k] = roundPlayers[roundPlayers.length-1];
+                    roundPlayers[roundPlayers.length-1] = t;
+                    roundPlayers[roundPlayers.length-1].addByeScore(byeScore);
+                    }
+            }
+            for(int i = 0; i < activePlayers; i+=2)
             {
-                Player player1 = players[i];
-                Player player2 = getOpponentFor(player1,players);
+                Player player1 = roundPlayers[i];
+                Player player2 = getOpponentFor(player1,roundPlayers);
                 if(player2!=null)
                 {
-                Pair pair = new Pair(player1, player2);
-                pairs.add(pair);
+                    Pair pair = new Pair(player1, player2);
+                    pairs.add(pair);
                 }
             }
-            if(players.length%2 != 0)
-                    players[players.length-1].addByeScore(byeScore);
+           
 
             return pairs;
      }
 
-     private Player getOpponentFor(Player player,Player[] players)
+    private Player getOpponentFor(Player player,Player[] players)
      {
 
             for(Player oppPlayer:players)
             {
                 if( player!=oppPlayer && !(oppPlayer.isPreviousOpponent(player.getId())) )
                 {
+                    player.addOpponentId(oppPlayer.getId());
+                    oppPlayer.addOpponentId(player.getId());
                     return oppPlayer;
                 }
             }

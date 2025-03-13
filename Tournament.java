@@ -9,24 +9,25 @@ public class Tournament {
 
     private static Tournament tournament;
 
-    private Tournament(int roundCount,int playerCount)
+    private Tournament(int playerCount)
     {
-        this.roundCount = roundCount;
+        this.roundCount = playerCount-1;
+        System.out.println("Rounds: "+this.roundCount);
         this.playerCount = playerCount;
         this.players = generatePlayers();
         this.rounds = new Round[roundCount];
     }
     
         
-    public static Tournament getInstance(int roundCount,int playerCount)
+    public static Tournament getInstance(int playerCount)
     {
-        if(tournament == null) tournament = new Tournament(roundCount,playerCount);
+        if(tournament == null) tournament = new Tournament(playerCount);
         return tournament;
     }
 
-    public static Tournament resetTournamentInstance(int roundCount,int playerCount)
+    public static Tournament resetTournamentInstance(int playerCount)
     {
-        tournament = new Tournament(roundCount, playerCount);
+        tournament = new Tournament( playerCount);
         return tournament;
 
     }
@@ -103,10 +104,10 @@ public class Tournament {
             System.out.println("\t  Leader Board! \t");
             System.out.println("----------------------------------------------------------------------");
             int count = 1;
-            System.out.println("Rank \t Id \t Score");
+            System.out.println("Rank \t Id \t Score \t opponents");
             for(Player player:players)
             {
-                System.out.println(count +" \t "+player.getId()+" \t "+player.getScore());
+                System.out.println(count +" \t "+player.getId()+" \t "+player.getScore()+" \t "+player.getOpponents());
                 count++;
             }
 

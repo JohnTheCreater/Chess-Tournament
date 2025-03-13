@@ -6,9 +6,8 @@ public class Main {
     public static void main(String[] args)
     {
         Scanner scan = new Scanner(System.in);
-        int roundCount = scan.nextInt();
         int playerCount = scan.nextInt();
-        Tournament tournament = Tournament.getInstance(roundCount, playerCount);
+        Tournament tournament = Tournament.getInstance( playerCount);
         tournament.startTournament();
         tournament.printLeaderBoard();
 
